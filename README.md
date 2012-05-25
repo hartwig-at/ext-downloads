@@ -13,11 +13,11 @@ Features include:
     These records represent a single download on your site.
 
 - Automatic filename construction  
-    Filenames are automatically constructed based on a few simple rules.
-    This guarantees consisten naming of your downloads.
+    Filenames are automatically constructed based on a few simple rules.  
+    This guarantees consistent naming of your downloads.
 
 - Downloads respect FE user access rights  
     Access to any single download (or a whole category) can be restricted through the usual TYPO3 methods.
 
-- Full multi-language support
+- Full multi-language support  
     Depending on the language the user has chosen, he can be supplied with an alternative file.
