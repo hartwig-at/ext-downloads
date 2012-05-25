@@ -1,0 +1,61 @@
+div.tx-downloads {}
+  div.tx-downloads ul.flashMessages {
+    background-color : #FFEFC9;
+    border           : 1px solid #FFCE5E;
+    margin           : 5px !important;
+    padding          : 10px !important; 
+  }
+    div.tx-downloads ul.flashMessages li {
+      list-style-type : none; 
+    }
+  div.tx-downloads h2 {
+    border-bottom : 1px solid #ddd;
+    margin : 1em 0 0.5em;
+  }
+  div.tx-downloads div.tx-downloads-item {
+    border-bottom : 1px solid #90c797;
+    margin        : 0.5em 0;
+  }
+    div.tx-downloads div.tx-downloads-item div.tx-downloads-image-container {
+      display        : inline-block;
+      padding-bottom : 15px;
+      width          : 130px;
+    }
+      div.tx-downloads div.tx-downloads-item div.tx-downloads-image-container img.tx-downloads-image {
+        border : 1px solid #90c797;
+      }
+    div.tx-downloads div.tx-downloads-item div.tx-downloads-text {
+      display        : inline-block;
+      margin-left    : 15px;
+      max-width      : 410px;
+      vertical-align : top;
+      width          : 100%;
+    }
+      div.tx-downloads div.tx-downloads-item div.tx-downloads-text h3 {
+        border-bottom : 1px dotted #90c797;
+        margin        : 0;
+      }
+      div.tx-downloads div.tx-downloads-item div.tx-downloads-text div.tx-downloads-link {
+        margin-top : 0.25em;
+      }
+        div.tx-downloads div.tx-downloads-item div.tx-downloads-text div.tx-downloads-link img {
+          vertical-align:text-top;
+        }
+        div.tx-downloads div.tx-downloads-item div.tx-downloads-text div.tx-downloads-link a {
+        }
+        div.tx-downloads div.tx-downloads-item div.tx-downloads-text div.tx-downloads-installnotes {
+          font-style : italic;
+          opacity    : 0.5;
+          margin-top : 0.25em;
+          font-size  : 0.75em;
+          overflow   : hidden;
+        }
+          div.tx-downloads div.tx-downloads-item div.tx-downloads-text p.tx-downloads-description {
+            margin-top : 1em;
+          }
+          div.tx-downloads div.tx-downloads-item div.tx-downloads-text div.tx-downloads-installnotes p {
+            /*margin-top : 0 !important;*/
+          }
+          div.tx-downloads div.tx-downloads-item div.tx-downloads-text div.tx-downloads-installnotes a {
+            color : #000;
+          }

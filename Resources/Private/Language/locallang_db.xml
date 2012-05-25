@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'downloads'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_downloads_domain_model_download">Downloads</label>
+			<label index="tx_downloads_domain_model_download.title">Title</label>
+			<label index="tx_downloads_domain_model_download.file_name">Filename</label>
+			<label index="tx_downloads_domain_model_download.download_category">Category</label>
+			<label index="tx_downloads_domain_model_download.description">Description</label>
+			<label index="tx_downloads_domain_model_download.install_notes">Install Notes</label>
+			<label index="tx_downloads_domain_model_download.qualifier">Qualifier</label>
+
+			<label index="tx_downloads_domain_model_downloadcategory">Download Categories</label>
+			<label index="tx_downloads_domain_model_downloadcategory.name">Name</label>
+			<label index="tx_downloads_domain_model_downloadcategory.file_name_part">Filename Part</label>
+
+			<label index="tx_downloads_domain_model_installnotes">Install Notes</label>
+			<label index="tx_downloads_domain_model_installnotes.filetype">Filetype</label>
+			<label index="tx_downloads_domain_model_installnotes.notes">Notes</label>
+
+		</languageKey>
+	</data>
+</T3locallang>

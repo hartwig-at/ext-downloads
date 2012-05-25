@@ -1,0 +1,372 @@
+<f:layout name="Backend/Default" />
+
+<f:section name="iconButtons">
+
+</f:section>
+
+<f:section name="content">
+  <h3 class="uppercase">Download Importer</h3>
+  <p class="description">
+    This is the "Download importer module". Within the select box below you find a list of all available import jobs.<br />
+    <strong>Note</strong>: It's strongly recommended to backup all downloads tables before running an import job.
+
+  </p>
+  
+  <br />
+  <!--
+  Choose a job:   <f:form.select id="jobSelector" options="{availableJobs}" />
+  <br /><br />
+
+
+  <f:form.select id="catSelector" options="{availableCategories}" />
+  
+  <div id="job" style="display:none;">
+    <div id="progressBar" style="width:300px;"></div>
+    <button id="startButton">Start</button><br />
+  </div>
+    -->
+  <div id="tx-downloads-import-form"></div>
+
+
+  <script type="text/javascript">
+  <![CDATA[
+    Ext.namespace( "Tx_Downloads" );
+    
+    // Code copied from EXT:news
+    Tx_Downloads.Common = function() {
+      var pub    = {};
+      var extKey = "downloads";
+
+      var underscoreToUpperCamelCase = function( subject ) {
+        var matches = subject.match( /(_\w)/g );
+          if( matches ) {
+            matches.each( function( m ) {
+              subject = subject.replace( m, m.charAt( 1 ).toUpperCase() );
+            });
+          }
+          return subject.charAt( 0 ).toUpperCase() + subject.substr( 1 );
+      };
+
+      pub.getParameterPrefix = function( mainModuleName, subModuleName ) {
+        return "tx_" + extKey + "_" + mainModuleName + "_" + extKey + subModuleName.replace( /_/g, "" );
+      };
+
+      pub.getExtKey = function() {
+        return extKey;
+      };
+
+      pub.getBackendRequest = function( mainModuleName, subModuleName, controller, action, parameters ) {
+        var parameterPrefix = pub.getParameterPrefix( mainModuleName, subModuleName );
+        var params          = {};
+
+        Ext.apply( parameters, { controller: controller, action: action } );
+
+        Ext.iterate( parameters, function( key, value ) {
+          params[ parameterPrefix + "[" + key + "]" ]  = value;
+        });
+
+        var request = {
+          "url"    : "mod.php?" + "M=" + mainModuleName + "_" +  Ext.util.Format.capitalize( extKey ) + underscoreToUpperCamelCase( subModuleName ),
+          "params" : params
+        };
+
+        return request;
+      };
+
+      return pub;
+    }();
+    
+    /**
+     * Download Importer
+     */
+    Tx_Downloads.Importer = function( targets, progressBar ) {
+      var pub = {};
+      
+      // The entities that should be imported
+      pub.targets = targets;
+      
+      // The ID of the category the downloads should be placed in.
+      pub.category = 0;
+      
+      // The qualifier that should be assigned to the download records.
+      pub.qualifier = "";
+      
+      // The ID of the install notes that will be assigned to the downloads.
+      pub.installNotes = 0;
+      
+      // The progress bar we should update during the process (to indicate progress).
+      pub.progressBar = progressBar;
+      
+      // Listener to invoke after finishing import process
+      pub.onFinish = null;
+
+      pub.run = function () {
+        // Iterate over selected import targets
+        Ext.each( pub.targets, function( target, index, allItems ) {
+          var request = Ext.apply( Tx_Downloads.Common.getBackendRequest( "tools", "tx_downloads_m1", "Import", "importEntityAsDownload", { 
+            entityName   : target,
+            category     : pub.category,
+            qualifier    : pub.qualifier,
+            installNotes : pub.installNotes 
+          } ) );
+          
+          Ext.apply( request, {
+            success : function( response, opts ) {
+              var progress = index / targets.length;
+  
+              if( null != pub.progressBar ) {
+                pub.progressBar.updateProgress( progress, target );
+                
+                // Are we done importing?
+                if( index >= targets.length - 1 ) {
+                  // Signal completion on the progress bar
+                  pub.progressBar.updateProgress( 1, "Done." );
+                  // Fade out progress bar 
+                  pub.progressBar.getEl().fadeOut({
+                    callback : function() {
+                      // After fade out, hide item correctly and fade element back in
+                      pub.progressBar.hide();
+                      pub.progressBar.reset(); 
+                      pub.progressBar.getEl().fadeIn( { duration : 0 } );
+                      
+                      // If we have an onFinish listener, call it now
+                      if( null != pub.onFinish ) {
+                        pub.onFinish( this );
+                      }
+                    }
+                  });
+                }
+              } else {
+                // Are we done importing?
+                if( index >= targets.length - 1 ) {
+                  if( null != pub.onFinish ) {
+                    pub.onFinish( this );
+                  }
+                }
+              }
+            },
+            failure : function( response ) {
+              Ext.MessageBox.show( {
+                title    : "Error while importing download", 
+                msg      : response.responseText,
+                icon     : Ext.MessageBox.ERROR,
+                minWidth : 400,
+                buttons  : Ext.Msg.OK
+              });
+            }
+          });
+          Ext.Ajax.request( request );
+        });
+      };
+      
+      return pub;
+    };
+    
+    Ext.onReady( function() {
+      Ext.QuickTips.init();
+      
+      // Category selection dropdown
+      var categorySelector = new Ext.form.ComboBox({
+        allowBlank    : false,
+        displayField  : "name",
+        editable      : false,
+        emptyText     : "Please select a category...",
+        fieldLabel    : "Category",
+        height        : 400,
+        mode          : "local",
+        triggerAction : "all",
+        typeAhead     : false,
+        valueField    : "id"
+      });
+      
+      var qualifierSelector = new Ext.form.TextField({
+        emptyText  : "Define a qualifier to identify your downloads later",
+        fieldLabel : "Qualifier"
+      });
+      
+      // Install notes selection dropdown
+      var installNotesSelector = new Ext.form.ComboBox({
+        allowBlank    : false,
+        displayField  : "name",
+        editable      : false,
+        emptyText     : "Please select an install note...",
+        fieldLabel    : "Install Notes",
+        height        : 400,
+        mode          : "local",
+        triggerAction : "all",
+        typeAhead     : false,
+        valueField    : "id"
+      });
+      
+      var request       = Tx_Downloads.Common.getBackendRequest( "tools", "tx_downloads_m1", "Import", "enumDirectory", { "directoryName" : "" } );
+      var directoryName = Tx_Downloads.Common.getParameterPrefix( "tools", "tx_downloads_m1" ) + "[" + "directoryName" + "]";
+      var treeLoader    = new Ext.tree.TreeLoader({
+        dataUrl       : request[ "url" ],
+        baseParams    : request[ "params" ],
+        nodeParameter : directoryName
+      });
+      
+      // Build our file system tree
+      var tree = new Ext.tree.TreePanel({
+        autoScroll      : true,
+        animate         : true,
+        buttonAlign     : "left",
+        containerScroll : true,
+        
+        enableDD        : false,
+        fieldLabel      : "Select Files",
+        frame           : true,
+        height          : 400,
+        loader          : treeLoader,
+        rootVisible     : false,
+        root            : {
+          id       : "root",
+          nodeType : "async"
+        },
+        useArrows       : true,
+        
+        fbar : [
+          // Filter box
+          new Ext.form.TextField( {
+            emptyText       : "Type here to filter...",
+            enableKeyEvents : true,
+            listeners       : {
+              "keyup" : function( textField, eventObject ) {
+                // Iterate over all nodes..
+                tree.root.cascade( function( node ) {
+                  // ...but skip the root
+                  if( node == tree.root ) return;
+                  // Only nodes with text take part in this filtering
+                  if( node.text ) {
+                    // Check if the filter matches the node text
+                    // BUT ONLY if the node has no children (otherwise those would be hidden if the filter applies).
+                    if( 0 == node.childNodes.length && node.text.indexOf( textField.getValue() ) == -1 ) {
+                      node.ui.hide();
+                    } else {
+                      node.ui.show();
+                    }
+                  }
+                } )
+              }
+            }
+          } ),
+          "->",
+          new Ext.Button( {
+            text : "Clear Selection",
+            handler : function() {
+              tree.root.cascade( function( node ) { node.ui.toggleCheck( false ); } );
+            }
+          } )
+        ],
+        
+        listeners : {
+          "checkchange" : function( node, checked ) {
+            Ext.each( node.childNodes, function( target, index, allItems ) {
+              target.ui.toggleCheck( checked ); 
+            } );
+          },
+          "expandnode" : function( node ) {
+            Ext.each( node.childNodes, function( target, index, allItems ) {
+              target.ui.toggleCheck( node.ui.isChecked() ); 
+            } );
+          }
+        }
+      } );
+      
+      var progressBar = new Ext.ProgressBar({});
+      
+      var form = new Ext.form.FormPanel({
+        renderTo    : "tx-downloads-import-form",
+        title       : "Import Downloads",
+        autoHeight  : true,
+        width       : 600,
+        bodyStyle   : "padding: 5px",
+        defaults    : {
+          anchor : "0"
+        },
+        items       : [ 
+          categorySelector,
+          qualifierSelector,
+          installNotesSelector,
+          tree,
+          {
+            anchor  : "2", // Required to make button align with layout
+            text    : "Begin import",
+            xtype   : "button",
+            handler : function( button, eventObject ) {
+              var msg      = "";
+              var selNodes = tree.getChecked();
+              if( !categorySelector.validate() || !installNotesSelector.validate() ) {
+                // One of the UI elements didn't validate
+                return;
+              }
+              
+              if( null != selNodes && selNodes.length > 0 ) {
+                button.hide();
+                progressBar.show();
+                progressBar.updateText( "Importing..." );
+                
+              } else {
+                Ext.MessageBox.show( {
+                  title    : "Error while importing download", 
+                  msg      : "Please select at least 1 element to import.",
+                  icon     : Ext.MessageBox.ERROR,
+                  minWidth : 400,
+                  buttons  : Ext.Msg.OK
+                });
+                return;
+              }
+              
+              var toImport = []; 
+              Ext.each( selNodes, function( node ) {
+                toImport.push( node.id );
+              });
+              
+              var importer = new Tx_Downloads.Importer( toImport, progressBar );
+              importer.category     = categorySelector.getValue();
+              importer.qualifier    = qualifierSelector.getValue();
+              importer.installNotes = installNotesSelector.getValue();
+              importer.onFinish     = function( importer ) {
+                button.show();
+              }
+              importer.run();
+              
+            }
+          },
+          progressBar
+        ]
+      });
+      
+      // Expand the root node to show the first level
+      tree.getRootNode().expand();
+      // We have to .hide() the progress bar instead of setting hidden:true because otherwise the label will be hidden on the progress bar (EXTJs bug?)
+      progressBar.hide();
+      
+      var listCategoriesRequest   = Ext.apply( Tx_Downloads.Common.getBackendRequest( "tools", "tx_downloads_m1", "Import", "listCategories", {} ) );
+      var listInstallNotesRequest = Ext.apply( Tx_Downloads.Common.getBackendRequest( "tools", "tx_downloads_m1", "Import", "listInstallNotes", {} ) );
+
+      Ext.apply( listCategoriesRequest, {
+        success: function( response ) {
+          var categories = ( Ext.decode( response.responseText ) );
+          categorySelector.store = new Ext.data.ArrayStore({
+            fields : [ "id", "name" ],
+            data   : categories
+          });
+        }
+      });
+      Ext.apply( listInstallNotesRequest, {
+        success: function( response ) {
+          var installNotes = ( Ext.decode( response.responseText ) );
+          installNotesSelector.store = new Ext.data.ArrayStore({
+            fields : [ "id", "name" ],
+            data   : installNotes
+          });
+        }
+      });
+
+      Ext.Ajax.request( listCategoriesRequest );
+      Ext.Ajax.request( listInstallNotesRequest );
+    });
+  ]]>
+  </script>
+</f:section>

@@ -1,0 +1,18 @@
+plugin.tx_downloads {
+	view {
+		# cat=plugin.tx_downloads/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:downloads/Resources/Private/Templates/
+		# cat=plugin.tx_downloads/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:downloads/Resources/Private/Partials/
+		# cat=plugin.tx_downloads/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:downloads/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_downloads//a; type=int+; label=Default storage PID
+		storagePid = 
+	}
+	settings {
+	 # cat=plugin.tx_downloads/file; type=string; label=Path to file type icons
+    iconPath = EXT:downloads/Resources/Public/Icons/TypeIcons/
+  }
+}

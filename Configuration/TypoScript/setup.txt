@@ -1,0 +1,32 @@
+plugin.tx_downloads {
+	view {
+		templateRootPath = {$plugin.tx_downloads.view.templateRootPath}
+		partialRootPath  = {$plugin.tx_downloads.view.partialRootPath}
+		layoutRootPath   = {$plugin.tx_downloads.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_downloads.persistence.storagePid}
+	}
+	settings {
+	  iconPath = {$plugin.tx_downloads.settings.iconPath}
+	  typeIcons {
+      default = document.png
+      
+      // Image Types
+      bmp  = document-image.png
+      gif  = document-image.png
+      jpeg = document-image.png
+      jpg  = document-image.png
+      tif  = document-image.png
+      
+      dxf  = document--pencil.png
+      pdf  = document-pdf.png
+      psd  = document-photoshop-image.png
+      zip  = document-zipper.png
+	  }
+	}
+}
+
+plugin.tx_downloads._CSS_DEFAULT_STYLE (
+
+)
