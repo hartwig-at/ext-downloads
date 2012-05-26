@@ -65,8 +65,13 @@ class Tx_Downloads_Utility_Filename {
    * @return string The resulting, valid file name 
    */
   public static function clean( $filename, $replace = "_" ) {
+    // Convert string down to ASCII
+    $encoded = iconv( "utf-8", "ascii//TRANSLIT", $filename );
+    
+    // Replace non-ASCII characters?
     $pattern  = "/([[:alnum:]_\.-]*)/";
-    $filename = str_replace( str_split( preg_replace( $pattern, $replace, $filename ) ), $replace, $filename );
-    return $filename;
+    $resultingFilename = str_replace( str_split( preg_replace( $pattern, $replace, $encoded ) ), $replace, $encoded );
+    
+    return $resultingFilename;
   }
 }
