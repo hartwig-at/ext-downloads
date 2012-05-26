@@ -17,7 +17,7 @@
   <div class="tx-downloads-text">
     <h3>{download.title}</h3>
     <f:if condition="{download.description}">
-      <p class="tx-downloads-description">{download.description}</p>
+      <p class="tx-downloads-description"><f:format.html>{download.description}</f:format.html></p>
     </f:if>
     
     <div class="tx-downloads-link">
