@@ -1,0 +1,8 @@
+plugin.tx_downloads_downloads {
+	settings {
+	  iconPath = {$plugin.tx_downloads_downloads.settings.iconPath}
+	  example {
+	    // Place your own TS here
+	  }
+	}
+}

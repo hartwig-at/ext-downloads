@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>TYPO3 Language file</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array"><label index="downloads_title">Downloads List</label>
+<label index="downloads_plus_wiz_description">Description for Downloads List</label>
+<label index="stats_title">Download Statistics</label>
+<label index="stats_plus_wiz_description">Description for Download Statistics</label>
+		</languageKey>
+	</data>
+</T3locallang>

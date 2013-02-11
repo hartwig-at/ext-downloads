@@ -1,61 +1,30 @@
-<T3DataStructure>
-  <meta>
-    <langDisable>1</langDisable>
-  </meta>
-  
- <sheets>
-  <sDEF>
-   <ROOT>
-     <TCEforms>
-      <sheetTitle>General</sheetTitle>
-     </TCEforms>
-     <type>array</type>
-     <el>
-      <switchableControllerActions>
-       <TCEforms>
-         <label>Select function</label>
-         <config>
-          <type>select</type>
-          <items>
-            
-            <numIndex index="0">
-             <numIndex index="0">List Downloads</numIndex>
-             <numIndex index="1">Download->list;Download->download</numIndex>
-            </numIndex>
-            
-           </items>
-         </config>
-       </TCEforms>
-      </switchableControllerActions>
-      <!-- Download Records -->
-      <settings.records>
-        <TCEforms>
-          <label>Select Records</label>
-          <config>
-            <type>group</type>
-            <internal_type>db</internal_type>
-            <allowed>tx_downloads_domain_model_download</allowed>
-            <show_thumbs>1</show_thumbs>
-            <size>10</size>
-            <selectedListStyle>width:400px</selectedListStyle>
-            <multiple>0</multiple>
-            <maxitems>99</maxitems>
-            <minitems>0</minitems>
-             <wizards>
-              <suggest>
-                <type>suggest</type>
-                <tx_downloads_domain_model_download>
-                  <searchWholePhrase>1</searchWholePhrase>
-                  <maxItemsInResultList>10</maxItemsInResultList>
-                  <addWhere>AND tx_downloads_domain_model_download.sys_language_uid=0</addWhere>
-                </tx_downloads_domain_model_download>
-              </suggest>
-            </wizards>
-          </config>
-        </TCEforms>
-      </settings.records>
-     </el>
-   </ROOT>
-  </sDEF>
- </sheets>
-</T3DataStructure>
+<T3DataStructure>  <meta>    <langDisable>1</langDisable>  </meta>    <sheets>    <sDEF>      <ROOT>        <TCEforms>         <sheetTitle>General</sheetTitle>        </TCEforms>        <type>array</type>        <el><switchableControllerActions><TCEforms><label>Action</label><config><type>select</type><items>                  <numIndex index="0">                    <numIndex index="0">Show me a list</numIndex>                    <numIndex index="1">Downloads->list;Downloads->download</numIndex>                  </numIndex>                  <numIndex index="1">                    <numIndex index="0">Download a file</numIndex>                    <numIndex index="1">Downloads->download;Downloads->list</numIndex>                  </numIndex></items></config></TCEforms></switchableControllerActions>
+<settings.records><TCEforms>
+<exclude>0</exclude>
+<label>LLL:EXT:downloads/Resources/Private/Language/locallang_db.xml:tx_downloads_domain_model_flexform.records</label>
+<config>
+<foreign_table>tx_downloads_domain_model_download</foreign_table>
+<foreign_table_where>AND tx_downloads_domain_model_download.sys_language_uid=0</foreign_table_where>
+<allowed>tx_downloads_domain_model_download</allowed>
+<wizards>
+<RTE>
+<type>suggest</type></RTE>
+<suggest>
+<tx_downloads_domain_model_download>
+<searchWholePhrase>1</searchWholePhrase>
+<maxItemsInResultList>10</maxItemsInResultList>
+<addWhere>AND tx_downloads_domain_model_download.sys_language_uid=0</addWhere></tx_downloads_domain_model_download></suggest></wizards>
+<internal_type>db</internal_type>
+<show_thumbs>1</show_thumbs>
+<size>10</size>
+<selectedListStyle>width:400px</selectedListStyle>
+<multiple>0</multiple>
+<minitems>0</minitems>
+<maxitems>99</maxitems>
+<type>group</type></config></TCEforms></settings.records>
+<settings.showCategories><TCEforms>
+<exclude>0</exclude>
+<label>LLL:EXT:downloads/Resources/Private/Language/locallang_db.xml:tx_downloads_domain_model_flexform.show_categories</label>
+<config>
+<type>check</type>
+<default>1</default></config></TCEforms></settings.showCategories>        </el>      </ROOT>    </sDEF>  </sheets></T3DataStructure>

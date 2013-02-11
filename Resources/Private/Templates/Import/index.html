@@ -9,8 +9,14 @@
   <p class="description">
     This is the "Download importer module". Within the select box below you find a list of all available import jobs.<br />
     <strong>Note</strong>: It's strongly recommended to backup all downloads tables before running an import job.
-
   </p>
+
+  <script type="text/javascript">
+    if (top && top.TYPO3.Backend.NavigationContainer.PageTree) {
+      //top.fsMod.recentIds['web'] = 76;
+      top.TYPO3.Backend.NavigationContainer.PageTree.select(76);
+    }
+  </script>
   
   <br />
   <!--
@@ -30,12 +36,14 @@
 
   <script type="text/javascript">
   <![CDATA[
+    var mainModuleName = "web";
+
     Ext.namespace( "Tx_Downloads" );
     
     // Code copied from EXT:news
     Tx_Downloads.Common = function() {
       var pub    = {};
-      var extKey = "downloads";
+      var extKey = "user_downloads";
 
       var underscoreToUpperCamelCase = function( subject ) {
         var matches = subject.match( /(_\w)/g );
@@ -48,7 +56,8 @@
       };
 
       pub.getParameterPrefix = function( mainModuleName, subModuleName ) {
-        return "tx_" + extKey + "_" + mainModuleName + "_" + extKey + subModuleName.replace( /_/g, "" );
+        key = "userdownloads";
+        return "tx_" + extKey.replace( /_/g, "" ) + "_" + mainModuleName + "_" + key + subModuleName.replace( /_/g, "" ).toLowerCase();
       };
 
       pub.getExtKey = function() {
@@ -65,8 +74,10 @@
           params[ parameterPrefix + "[" + key + "]" ]  = value;
         });
 
+        var key = Ext.util.Format.capitalize( extKey ).replace( /_/g, "" );
+        key = "UserDownloads";
         var request = {
-          "url"    : "mod.php?" + "M=" + mainModuleName + "_" +  Ext.util.Format.capitalize( extKey ) + underscoreToUpperCamelCase( subModuleName ),
+          "url"    : "mod.php?" + "M=" + mainModuleName + "_" +  key + underscoreToUpperCamelCase( subModuleName ),
           "params" : params
         };
 
@@ -81,7 +92,7 @@
      */
     Tx_Downloads.Importer = function( targets, progressBar ) {
       var pub = {};
-      
+
       // The entities that should be imported
       pub.targets = targets;
       
@@ -103,7 +114,7 @@
       pub.run = function () {
         // Iterate over selected import targets
         Ext.each( pub.targets, function( target, index, allItems ) {
-          var request = Ext.apply( Tx_Downloads.Common.getBackendRequest( "tools", "tx_downloads_m1", "Import", "importEntityAsDownload", { 
+          var request = Ext.apply( Tx_Downloads.Common.getBackendRequest( mainModuleName, "UserdownloadsImport", "Import", "importEntityAsDownload", {
             entityName   : target,
             category     : pub.category,
             qualifier    : pub.qualifier,
@@ -198,8 +209,8 @@
         valueField    : "id"
       });
       
-      var request       = Tx_Downloads.Common.getBackendRequest( "tools", "tx_downloads_m1", "Import", "enumDirectory", { "directoryName" : "" } );
-      var directoryName = Tx_Downloads.Common.getParameterPrefix( "tools", "tx_downloads_m1" ) + "[" + "directoryName" + "]";
+      var request       = Tx_Downloads.Common.getBackendRequest( mainModuleName, "UserdownloadsImport", "Import", "enumDirectory", { "directoryName" : "" } );
+      var directoryName = Tx_Downloads.Common.getParameterPrefix( mainModuleName, "UserdownloadsImport" ) + "[" + "directoryName" + "]";
       var treeLoader    = new Ext.tree.TreeLoader({
         dataUrl       : request[ "url" ],
         baseParams    : request[ "params" ],
@@ -342,8 +353,8 @@
       // We have to .hide() the progress bar instead of setting hidden:true because otherwise the label will be hidden on the progress bar (EXTJs bug?)
       progressBar.hide();
       
-      var listCategoriesRequest   = Ext.apply( Tx_Downloads.Common.getBackendRequest( "tools", "tx_downloads_m1", "Import", "listCategories", {} ) );
-      var listInstallNotesRequest = Ext.apply( Tx_Downloads.Common.getBackendRequest( "tools", "tx_downloads_m1", "Import", "listInstallNotes", {} ) );
+      var listCategoriesRequest   = Ext.apply( Tx_Downloads.Common.getBackendRequest( mainModuleName, "UserdownloadsImport", "Import", "listCategories", {} ) );
+      var listInstallNotesRequest = Ext.apply( Tx_Downloads.Common.getBackendRequest( mainModuleName, "UserdownloadsImport", "Import", "listInstallNotes", {} ) );
 
       Ext.apply( listCategoriesRequest, {
         success: function( response ) {

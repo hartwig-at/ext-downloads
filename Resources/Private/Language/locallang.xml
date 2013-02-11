@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3locallang>
-	<meta type="array">
-		<type>module</type>
-		<description>Language labels for the Downloads extension in the FRONTEND</description>
-	</meta>
-	<data type="array">
-		<languageKey index="default" type="array">
-			<label index="tx_downloads_domain_model_download">This is a single file</label>
-			<label index="tx_downloads_domain_model_download.title">Title</label>
-			<label index="tx_downloads_domain_model_download.file_name">fileName</label>
-			<label index="tx_downloads_domain_model_download.install_notes">installNotes</label>
-			<label index="tx_downloads_domain_model_downloadcategory">This is a collection of downloads</label>
-			<label index="tx_downloads_domain_model_downloadcategory.name">The name of the category</label>
-			<label index="tx_downloads_domain_model_downloadcategory.auto_collect">Allow automatic collection of related downloads</label>
-			<label index="tx_downloads_domain_model_downloadcategory.collect_tag">The tag to look for when auto-collecting.</label>
-			<label index="tx_downloads_domain_model_downloadcategory.contained_downloads">Downloads in this category</label>
-			<label index="tx_downloads_domain_model_installnotes">What is required to open the download?</label>
-			<label index="tx_downloads_domain_model_installnotes.filetype">filetype</label>
-			<label index="tx_downloads_domain_model_installnotes.notes">notes</label>
-		</languageKey>
-	</data>
+  <meta type="array">
+    <type>database</type>
+    <description></description>
+  </meta>
+  <data type="array">
+    <languageKey index="default" type="array">
+      <label index="no_downloads">No downloads available</label>
+    </languageKey>
+    <languageKey index="de" type="array">
+      <label index="no_downloads">Keine Downloads verfügbar</label>
+    </languageKey>
+  </data>
 </T3locallang>

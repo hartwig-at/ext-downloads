@@ -16,6 +16,14 @@ div.tx-downloads {}
     border-bottom : 1px solid #90c797;
     margin        : 0.5em 0;
   }
+    div.tx-downloads div.tx-downloads-item .adminInfo {
+      font-family: monospace;
+      opacity: 0.5;
+      word-wrap  : break-word;
+    }
+    div.tx-downloads div.tx-downloads-item .adminInfo:hover {
+      opacity: 1;
+    }
     div.tx-downloads div.tx-downloads-item div.tx-downloads-image-container {
       display        : inline-block;
       padding-bottom : 15px;

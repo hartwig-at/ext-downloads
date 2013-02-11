@@ -2,26 +2,30 @@
 <T3locallang>
 	<meta type="array">
 		<type>database</type>
-		<description>Language labels for database tables/fields belonging to extension 'downloads'</description>
+		<description>TYPO3 Language file</description>
 	</meta>
 	<data type="array">
-		<languageKey index="default" type="array">
-			<label index="tx_downloads_domain_model_download">Download</label>
-			<label index="tx_downloads_domain_model_download.title">Title</label>
-			<label index="tx_downloads_domain_model_download.file_name">Filename</label>
-			<label index="tx_downloads_domain_model_download.download_category">Category</label>
-			<label index="tx_downloads_domain_model_download.description">Description</label>
-			<label index="tx_downloads_domain_model_download.install_notes">Install Notes</label>
-			<label index="tx_downloads_domain_model_download.qualifier">Qualifier</label>
-
-			<label index="tx_downloads_domain_model_downloadcategory">Download Category</label>
-			<label index="tx_downloads_domain_model_downloadcategory.name">Name</label>
-			<label index="tx_downloads_domain_model_downloadcategory.file_name_part">Filename Part</label>
-
-			<label index="tx_downloads_domain_model_installnotes">Install Note</label>
-			<label index="tx_downloads_domain_model_installnotes.filetype">Filetype</label>
-			<label index="tx_downloads_domain_model_installnotes.notes">Notes</label>
-
+		<languageKey index="default" type="array"><label index="tx_downloads_domain_model_flexform.records">Select Downloads to display</label>
+<label index="tx_downloads_domain_model_flexform.show_categories">Show Categories?</label>
+<label index="tx_downloads_domain_model_download">Download</label>
+<label index="tx_downloads_domain_model_downloadcategory">Download Category</label>
+<label index="tx_downloads_domain_model_installnote">Install Note</label>
+<label index="tx_downloads_domain_model_access"></label>
+<label index="tx_downloads_domain_model_download.title">Title</label>
+<label index="tx_downloads_domain_model_download.filename">Filename</label>
+<label index="tx_downloads_domain_model_download.download_category">Download Category</label>
+<label index="tx_downloads_domain_model_download.qualifier">Qualifier</label>
+<label index="tx_downloads_domain_model_download.description">Description</label>
+<label index="tx_downloads_domain_model_download.install_note">Install Note</label>
+<label index="tx_downloads_domain_model_downloadcategory.name">Name</label>
+<label index="tx_downloads_domain_model_downloadcategory.file_name_part">Filename Part</label>
+<label index="tx_downloads_domain_model_installnote.filetype">File Type</label>
+<label index="tx_downloads_domain_model_installnote.notes">Notes</label>
+<label index="tx_downloads_domain_model_access.fe_user"></label>
+<label index="tx_downloads_domain_model_access.ip_address"></label>
+<label index="tx_downloads_domain_model_access.referrer"></label>
+<label index="tx_downloads_domain_model_access.date_time"></label>
+<label index="tx_downloads_domain_model_access.download"></label>
 		</languageKey>
 	</data>
 </T3locallang>
