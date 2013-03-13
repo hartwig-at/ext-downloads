@@ -21,3 +21,30 @@ Features include:
 
 - Full multi-language support
     Depending on the language the user has chosen, he can be supplied with an alternative file.
+
+realurl
+-------
+
+	$TYPO3_CONF_VARS[ "EXTCONF" ][ "realurl" ] = array(
+	  "encodeSpURL_postProc" => array( "EXT:downloads/Classes/Hooks/RealUrl.php:&Tx_Downloads_Hooks_RealUrl->encode" ),
+	  "decodeSpURL_preProc"  => array( "EXT:downloads/Classes/Hooks/RealUrl.php:&Tx_Downloads_Hooks_RealUrl->decode" )
+	);
+
+    $TYPO3_CONF_VARS['EXTCONF']['realurl']['BASECONFIG'] = array(
+      'postVarSets' => array(   
+        '_DEFAULT' => array(
+          'download' => array(
+            array(
+              'GETvar' => 'tx_downloads_downloads[controller]'
+            ),
+            array(
+              'GETvar' => 'tx_downloads_downloads[action]'
+            ),
+            array(
+              'GETvar' => 'tx_downloads_downloads[id]'
+            ),
+            array(
+              'GETvar' => 'tx_downloads_downloads[filename]'
+            ),
+          ),
+         ...
