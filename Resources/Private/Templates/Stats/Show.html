@@ -1,1 +1,53 @@
-<f:layout name="Default" /><f:section name="main">  <f:flashMessages class="flashMessages" />  <f:if condition="{debug}">    <f:debug>{debug}</f:debug>  </f:if>  <h3>You need to create your own Fluid templates and point TYPO3 to them via TypoScript.</h3>  <p>This is the default template for the action 'Display latest downloads'(show) of plugin 'Download Statistics'(stats).</p></f:section>
+{namespace downloads=Tx_Downloads_ViewHelpers}
+<f:layout name="Default" />
+<f:section name="main">
+  <f:if condition="{debug}">
+    <f:debug>{debug}</f:debug>
+  </f:if>
+  <f:flashMessages class="flashMessages" />
+  <f:comment>Iterate over all accesses, grouped by FE user.</f:comment>
+  <div class="stats">
+
+    <f:widget.paginate objects="{accesses}" as="paginatedAccesses" configuration="{itemsPerPage:100, insertBelow:1, maximumNumberOfLinks:10}">
+      <f:groupedFor each="{paginatedAccesses}" as="accessesByUser" groupBy="feUser" groupKey="feUser">
+
+          <f:if condition="{feUser.uid}">
+            <f:then>
+
+              <f:comment>If this is a valid FE user, iterate over all accesses.</f:comment>
+              <div class="user">
+                <h2 title="(uid:{feUser.uid})">{feUser.firstName} {feUser.lastName}<f:if condition="{feUser.company}"> <span class="company">({feUser.company})</span></f:if></h2>
+                <ol>
+                  <f:for each="{accessesByUser}" as="access">
+                    <li>
+                      <f:render partial="Stats/Show/Access" arguments="{access: access}"/>
+                    </li>
+                  </f:for>
+                </ol>
+              </div>
+
+            </f:then>
+            <f:else>
+
+              <f:comment>If there is no user ID set, iterate over all accesses grouped by IP address.</f:comment>
+              <div class="user">
+                <h2><downloads:ipAddress>{ipAddress}</downloads:ipAddress></h2>
+                <ol>
+                  <f:for each="{accessesByIpAddress}" as="access">
+                    <li>
+                      <f:render partial="Stats/Show/Access" arguments="{access: access}"/>
+                    </li>
+                  </f:for>
+                </ol>
+              </div>
+
+            </f:else>
+          </f:if>
+
+      </f:groupedFor>
+    </f:widget.paginate>
+    <p style="clear:right;" />
+  </div>
+
+  <span class="performance">{perf}s</span>
+</f:section>

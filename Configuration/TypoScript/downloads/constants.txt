@@ -1,6 +1,6 @@
 plugin.tx_downloads_downloads {
-	settings {
-	 # cat=plugin.tx_downloads_downloads/file; type=string; label=Path to file type icons
+  settings {
+    # cat=plugin.tx_downloads_downloads/file; type=string; label=Path to file type icons
     iconPath = EXT:downloads/Resources/Public/Icons/TypeIcons/
   }
 }

@@ -1,8 +1,20 @@
 plugin.tx_downloads_downloads {
-	settings {
-	  iconPath = {$plugin.tx_downloads_downloads.settings.iconPath}
-	  example {
-	    // Place your own TS here
-	  }
-	}
+  settings {
+    iconPath = {$plugin.tx_downloads_downloads.settings.iconPath}
+    typeIcons {
+      default = document.png
+      
+      // Image Types
+      bmp  = document-image.png
+      gif  = document-image.png
+      jpeg = document-image.png
+      jpg  = document-image.png
+      tif  = document-image.png
+      
+      dxf  = document--pencil.png
+      pdf  = document-pdf.png
+      psd  = document-photoshop-image.png
+      zip  = document-zipper.png
+    }
+  }
 }

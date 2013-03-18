@@ -1,0 +1,39 @@
+{namespace downloads=Tx_Downloads_ViewHelpers}
+
+<div class="tx-downloads-item" xmlns:f="" xmlns:downloads="">
+  <div class="tx-downloads-image-container">
+    <f:link.action action="download" arguments="{id:download.uid, filename:'{downloads:filename(download:download)}'}" noCacheHash="1" noCache="1" title="Last changed: {f:format.date(date:'@{download.fileTime}' format:'Y-m-d H:i:s')}">
+      <downloads:thumbnail
+        src="{download.fileName}"
+        title="{mediaElement.title}"
+        alt="{mediaElement.title}"
+        maxWidth="130"
+        maxHeight="130"
+        class="tx-downloads-image"
+      />
+    </f:link.action>
+  </div>
+
+  <div class="tx-downloads-text">
+    <h3><f:security.ifHasRole role="Developer"><span title="{download.filename}" class="adminInfo"><f:link.external uri="http://www.haseke.de/typo3/alt_doc.php?returnUrl={downloads:currentUrl()}&edit[tx_downloads_domain_model_download][{download.uid}]=edit">{download.uid}</f:link.external> </span></f:security.ifHasRole>{download.title}</h3>
+    <f:security.ifHasRole role="Developer"><p class="adminInfo">{download.filename}</p></f:security.ifHasRole>
+    <f:if condition="{download.description}">
+      <p class="tx-downloads-description"><f:format.html>{download.description}</f:format.html></p>
+    </f:if>
+    
+    <div class="tx-downloads-link">
+      <f:link.action action="download" arguments="{id:download.uid, filename:'{downloads:filename(download:download)}'}" noCacheHash="1" noCache="1" title="Last changed: {f:format.date(date:'@{download.fileTime}' format:'Y-m-d H:i:s')}">
+        <downloads:typeIcon 
+          filename="{f:uri.resource(path:download.fileName)}"
+          title="{download.fileType}"
+          alt="{download.fileType}"
+          class="tx-downloads-type"
+        /><downloads:filename download="{download}" />
+      </f:link.action> (<downloads:fileSize bytes="{download.fileSize}" />)
+    </div>
+    
+    <div class="tx-downloads-installnotes">
+      <f:format.html>{download.installNote.notes}</f:format.html>
+    </div>
+  </div>
+</div>

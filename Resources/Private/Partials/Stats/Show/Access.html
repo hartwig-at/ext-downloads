@@ -1,0 +1,8 @@
+{namespace downloads=Tx_Downloads_ViewHelpers}
+<div class="stats-entry">
+  <span class="timestamp"><downloads:localTime format="Y-m-d H:i:s">{access.dateTime}</downloads:localTime></span>
+  <span class="filename" title="(uid:{access.download.uid})"><downloads:filename download="{access.download}"/></span>
+  <f:if condition="{access.referrer}">
+    <div class="http-referrer">Referrer: <f:link.external uri="{access.referrer}" target="_blank">{access.referrer}</f:link.external></div>
+  </f:if>
+</div>

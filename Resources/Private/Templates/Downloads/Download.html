@@ -1,1 +1,11 @@
-<f:layout name="Default" /><f:section name="main">  <f:flashMessages class="flashMessages" />  <f:if condition="{debug}">    <f:debug>{debug}</f:debug>  </f:if>  <h3>You need to create your own Fluid templates and point TYPO3 to them via TypoScript.</h3>  <p>This is the default template for the action 'Download a file'(download) of plugin 'Downloads List'(downloads).</p></f:section>
+<f:layout name="Default" />
+<f:section name="main">
+  <f:flashMessages class="flashMessages" />
+  
+  <f:groupedFor each="{downloads}" as="category" groupBy="downloadCategory" groupKey="downloadCategory">
+  <h2>{downloadCategory.name}</h2>
+  <f:for each="{category}" as="download">
+    <f:render partial="Download" arguments="{download: download}"/>
+  </f:for>
+  </f:groupedFor>
+</f:section>

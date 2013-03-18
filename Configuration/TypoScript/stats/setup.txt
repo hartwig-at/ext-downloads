@@ -1,7 +1,10 @@
-plugin.tx_downloads_stats {
-	settings {
-	  example {
-	    // Place your own TS here
-	  }
-	}
+page {
+	# Inlude JavaScript files
+	includeJSlibs {
+		raphaelLibrary         = {$plugin.tx_downloads_stats.settings.javascript.raphaelLibrary}
+		raphaelGraphingLibrary = {$plugin.tx_downloads_stats.settings.javascript.raphaelGraphingLibrary}
+		raphaelLineLibrary     = {$plugin.tx_downloads_stats.settings.javascript.raphaelLineLibrary}
+		raphaelPieLibrary      = {$plugin.tx_downloads_stats.settings.javascript.raphaelPieLibrary}
+		downloadStats          = {$plugin.tx_downloads_stats.settings.javascript.base}
+  }
 }

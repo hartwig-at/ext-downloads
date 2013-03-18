@@ -1,2 +1,16 @@
 plugin.tx_downloads_stats {
+  settings {
+    javascript {
+      # cat=plugin.tx_downloads_stats/file; type=string; label=Path to raphael library
+      raphaelLibrary         = EXT:downloads/Resources/Public/JavaScript/Contrib/raphael-min.js
+      # cat=plugin.tx_downloads_stats/file; type=string; label=Path to graphael library
+      raphaelGraphingLibrary = EXT:downloads/Resources/Public/JavaScript/Contrib/g.raphael-min.js
+      # cat=plugin.tx_downloads_stats/file; type=string; label=Path to graphael line library
+      raphaelLineLibrary     = EXT:downloads/Resources/Public/JavaScript/Contrib/g.line-min.js
+      # cat=plugin.tx_downloads_stats/file; type=string; label=Path to graphael pie library
+      raphaelPieLibrary      = EXT:downloads/Resources/Public/JavaScript/Contrib/g.pie-min.js
+      # cat=plugin.tx_downloads_stats/file; type=string; label=Path to stats script
+      base                   = EXT:downloads/Resources/Public/JavaScript/stats.js
+    }
+  }
 }

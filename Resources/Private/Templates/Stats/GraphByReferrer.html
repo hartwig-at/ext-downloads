@@ -1,1 +1,17 @@
-<f:layout name="Default" /><f:section name="main">  <f:flashMessages class="flashMessages" />  <f:if condition="{debug}">    <f:debug>{debug}</f:debug>  </f:if>  <h3>You need to create your own Fluid templates and point TYPO3 to them via TypoScript.</h3>  <p>This is the default template for the action 'Graph: Top Referrer'(graphByReferrer) of plugin 'Download Statistics'(stats).</p></f:section>
+{namespace downloads=Tx_Downloads_ViewHelpers}
+<f:layout name="Default" />
+<f:section name="main">
+  <f:if condition="{debug}">
+    <f:debug>{debug}</f:debug>
+  </f:if>
+  <f:flashMessages class="flashMessages" />
+  <f:comment>Iterate over all accesses, grouped by FE user.</f:comment>
+  <div class="stats">
+    <f:render partial="Graph" arguments="{graphId: 'tx-downloads-stats-graph-{graphId}', graphingData: graphingData, graphingLabels: graphingLabels}" />
+  </div>
+  <script language="javascript">
+    graphByReferrer( "tx-downloads-stats-graph-{graphId}" );
+  </script>
+
+  <span class="performance">{perf}s</span>
+</f:section>

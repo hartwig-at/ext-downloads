@@ -1,1 +1,22 @@
-<f:layout name="Default" /><f:section name="main">  <f:flashMessages class="flashMessages" />  <f:if condition="{debug}">    <f:debug>{debug}</f:debug>  </f:if>  <h3>You need to create your own Fluid templates and point TYPO3 to them via TypoScript.</h3>  <p>This is the default template for the action 'Show me a list'(list) of plugin 'Downloads List'(downloads).</p></f:section>
+{namespace downloads=Tx_Downloads_ViewHelpers}
+<f:layout name="Default" />
+<f:section name="main">
+  <f:flashMessages class="flashMessages" />
+  <f:security.ifHasRole role="Developer">
+    <f:link.external uri="http://www.haseke.de/typo3/alt_doc.php?returnUrl={downloads:currentUrl()}&edit[tt_content][{downloads:uid()},]=edit">edit</f:link.external>
+  </f:security.ifHasRole>
+  <f:if condition="{downloads}">
+    <f:then>
+      <f:groupedFor each="{downloads}" as="category" groupBy="downloadCategory" groupKey="downloadCategory">
+      <h2>{downloadCategory.name}</h2>
+      <f:for each="{category}" as="download">
+        <f:render partial="Downloads/List/Download" arguments="{download: download}"/>
+      </f:for>
+      </f:groupedFor>
+    </f:then>
+    <f:else>
+      <f:translate key="LLL:EXT:downloads/Resources/Private/Language/locallang.xml:no_downloads" />
+    </f:else>
+  </f:if>
+  <f:cObject typoscriptObjectPath="lib.moreDownloads" />
+</f:section>
