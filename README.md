@@ -48,3 +48,9 @@ realurl
             ),
           ),
          ...
+
+Statistics
+----------
+To use the statistics, you'll want to set the **Record Type** of your user records to `Tx_Extbase_Domain_Model_FrontendUser`. Also make sure to provide the IDs of your user storage folder *with* the ID of your download storage folder. For example:
+
+    plugin.tx_downloads.persistence.storagePid = 19,29,102
