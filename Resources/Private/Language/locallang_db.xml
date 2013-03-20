@@ -13,6 +13,7 @@
 <label index="tx_downloads_domain_model_access"></label>
 <label index="tx_downloads_domain_model_download.title">Title</label>
 <label index="tx_downloads_domain_model_download.filename">Filename</label>
+<label index="tx_downloads_domain_model_download.image_override">Thumbnail Source</label>
 <label index="tx_downloads_domain_model_download.download_category">Download Category</label>
 <label index="tx_downloads_domain_model_download.qualifier">Qualifier</label>
 <label index="tx_downloads_domain_model_download.description">Description</label>

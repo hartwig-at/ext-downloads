@@ -11,6 +11,11 @@ protected $title;
 */
 protected $filename;
 /**
+* imageOverride
+* @var string
+*/
+protected $imageOverride;
+/**
 * downloadCategory
 * @var Tx_Downloads_Domain_Model_DownloadCategory
 */
@@ -48,6 +53,7 @@ protected $fileTime;
 public function getT3ManagedFields() {	 return $this->t3ManagedFields;}public function setT3ManagedFields( $t3ManagedFields ) {	 $this->t3ManagedFields = $t3ManagedFields;}
 public function getTitle() {	 return $this->title;}public function setTitle( $title ) {	 $this->title = $title;}
 public function getFilename() {	 return $this->filename;}public function setFilename( $filename ) {	 $this->filename = $filename;}
+public function getImageOverride() {	 return $this->imageOverride;}public function setImageOverride( $imageOverride ) {	 $this->imageOverride = $imageOverride;}
 public function getDownloadCategory() {	 return $this->downloadCategory;}public function setDownloadCategory( $downloadCategory ) {	 $this->downloadCategory = $downloadCategory;}
 public function getQualifier() {	 return $this->qualifier;}public function setQualifier( $qualifier ) {	 $this->qualifier = $qualifier;}
 public function getDescription() {	 return $this->description;}public function setDescription( $description ) {	 $this->description = $description;}
